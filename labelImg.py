@@ -108,7 +108,7 @@ class MainWindow(QMainWindow, WindowMixin):
         self.screencast = "https://youtu.be/p0nR2YsCY_U"
 
         # Load predefined classes to the list
-        self.load_predefined_classes(default_prefdef_class_file)
+        # self.load_predefined_classes(default_prefdef_class_file)
 
         if self.label_hist:
             self.default_label = self.label_hist[0]
@@ -1136,6 +1136,11 @@ class MainWindow(QMainWindow, WindowMixin):
                 self.label_file = None
                 self.canvas.verified = False
 
+                # todo: test by liuxinxing
+                if self.default_save_dir is not None and len(self.label_hist) == 0:
+                    predefined_classes_file = os.path.join(self.default_save_dir, "classes.txt")
+                    self.load_predefined_classes(predefined_classes_file)
+
             if isinstance(self.image_data, QImage):
                 image = self.image_data
             else:
@@ -1611,10 +1616,7 @@ class MainWindow(QMainWindow, WindowMixin):
             with codecs.open(predef_classes_file, 'r', 'utf8') as f:
                 for line in f:
                     line = line.strip()
-                    if self.label_hist is None:
-                        self.label_hist = [line]
-                    else:
-                        self.label_hist.append(line)
+                    self.label_hist.append(line)
 
     def load_pascal_xml_by_filename(self, xml_path):
         if self.file_path is None:

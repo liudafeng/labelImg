@@ -95,7 +95,7 @@ setup(
     packages=required_packages,
     entry_points={
         'console_scripts': [
-            'labelImg=labelImg.labelImg:main'
+            'labelImg=labelImg:main'
         ]
     },
     include_package_data=True,
